@@ -6071,114 +6071,88 @@ code {
 /*  2.17 Preloader
 /*----------------------------------------*/
 #pre-load {
-  background-color: var(--rs-bg-primary);
+  background-color: #ffffff;
   height: 100%;
   width: 100%;
   position: fixed;
   margin-top: 0px;
   top: 0px;
-  z-index: 9999;
+  left: 0px;
+  z-index: 999999;
 }
 
-.loader .loader-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  border: 3px solid #ebebec;
-  border-radius: 50%;
-}
-
-.loader .loader-container.has-theme-green::before {
-  border-color: var(--rs-theme-light-green);
-}
-
-.loader .loader-container.has-theme-yellow::before {
-  border-color: var(--rs-theme-yellow);
-}
-
-.loader .loader-container.has-theme-deep-blue::before {
-  border-color: var(--rs-theme-deep-blue);
-}
-
-.loader .loader-container.has-theme-red::before {
-  border-color: var(--rs-theme-red);
-}
-
-.loader .loader-container.has-theme-blue::before {
-  border-color: var(--rs-theme-blue);
-}
-
-.loader .loader-container.has-theme-light-blue::before {
-  border-color: var(--rs-theme-light-blue);
-}
-
-.loader .loader-container.has-theme-medium-green::before {
-  border-color: var(--rs-theme-medium-green);
-}
-
-.loader .loader-container.has-theme-bright-green::before {
-  border-color: var(--rs-theme-bright-green);
-}
-
-.loader .loader-container:before {
-  position: absolute;
-  content: "";
-  display: block;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  border-top: 3px solid var(--rs-theme-orange);
-  border-radius: 50%;
-  animation: loaderspin 1.8s infinite ease-in-out;
-  -webkit-animation: loaderspin 1.8s infinite ease-in-out;
-}
-
-.loader .loader-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80px;
+.teknokimya-loader {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  padding: 20px;
 }
 
-.loader .loader-icon img {
-  animation: loaderpulse alternate 900ms infinite;
-  width: 40px;
+.teknokimya-loader-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: loaderLogoPulse 2.2s ease-in-out infinite;
 }
 
-@keyframes loaderspin {
+.teknokimya-loader-logo img {
+  width: 230px;
+  max-width: 80vw;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 18px rgba(0, 45, 114, 0.08));
+}
+
+.teknokimya-loader-bar {
+  width: 180px;
+  max-width: 65vw;
+  height: 4px;
+  background: rgba(0, 45, 114, 0.1);
+  border-radius: 99px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 24px;
+}
+
+.teknokimya-loader-bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(0, 45, 114, 0.2), #002D72 50%, #0066cc 100%);
+  border-radius: 99px;
+  animation: loaderBarSlide 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes loaderLogoPulse {
+  0%, 100% {
+    transform: scale(0.97);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+@keyframes loaderBarSlide {
   0% {
-    transform: translate(-50%, -50%) rotate(0deg);
+    left: -50%;
+    width: 30%;
   }
-
+  50% {
+    left: 25%;
+    width: 55%;
+  }
   100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-@-webkit-keyframes loaderspin {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-@keyframes loaderpulse {
-  0% {
-    transform: scale(1);
-  }
-
-  100% {
-    transform: scale(1.2);
+    left: 100%;
+    width: 30%;
   }
 }
 

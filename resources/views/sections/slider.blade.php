@@ -1,8 +1,8 @@
 <!-- banner area start -->
 <section class="rs-banner-area rs-banner-six p-relative rs-swiper">
     <div class="rs-banner-slider-wrapper">
-        <div class="swiper" data-clone-slides="false" data-loop="true" data-speed="2000" data-autoplay="true"
-            data-dots-dynamic="false" data-hover-pause="true" data-effect="fade" data-delay="1000" data-item="1"
+        <div class="swiper" data-clone-slides="false" data-loop="{{ ($sliders ?? collect())->count() > 1 ? 'true' : 'false' }}" data-speed="2000" data-autoplay="true"
+            data-dots-dynamic="false" data-hover-pause="true" data-effect="fade" data-delay="5000" data-item="1"
             data-item-xl="1" data-item-lg="1" data-item-md="1" data-item-sm="1" data-item-xs="1"
             data-item-mobile="1" data-margin="30" data-margin-xl="30" data-margin-lg="30" data-margin-md="30"
             data-margin-sm="30" data-margin-xs="30" data-margin-mobile="30" data-auto-height="true"
@@ -11,7 +11,7 @@
                 @forelse($sliders ?? [] as $slider)
                     <div class="swiper-slide">
                         <div class="rs-banner-item-wrapper">
-                            <div class="rs-banner-bg-thumb" data-background="{{ asset($slider->background_image) }}">
+                            <div class="rs-banner-bg-thumb" data-background="{{ $slider->imageUrl() }}" style="background-image: url('{{ $slider->imageUrl() }}');">
                             </div>
                             <div class="container-fluid">
                                 <div class="row g-5">

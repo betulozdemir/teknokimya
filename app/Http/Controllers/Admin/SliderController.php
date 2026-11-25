@@ -25,12 +25,14 @@ class SliderController extends Controller
      */
     public function create(): View
     {
+        $nextOrder = ((int) Slider::query()->max('sort_order')) + 1;
+
         return view('admin.sliders.form', [
             'slider' => new Slider([
-                'background_image' => 'assets/images/bg/banner-bg-09.png',
-                'button_text' => 'Explore More - Explore More -',
-                'button_url' => '#contact',
-                'sort_order' => 1,
+                'background_image' => 'assets/images/slider/slider-galvano-coating.jpg',
+                'button_text' => 'Ürünleri İnceleyin - Keşfedin -',
+                'button_url' => '/urunler',
+                'sort_order' => $nextOrder,
                 'is_active' => true,
             ]),
         ]);

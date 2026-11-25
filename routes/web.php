@@ -21,6 +21,13 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ProductPageController;
 use App\Http\Controllers\ServicePageController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+
+Route::get('/storage/{path}', function (string $path) {
+    abort_unless(Storage::disk('public')->exists($path), 404);
+
+    return Storage::disk('public')->response($path);
+})->where('path', '.*')->name('storage.local');
 
 Route::get('/', HomeController::class)->name('home');
 

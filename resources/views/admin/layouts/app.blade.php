@@ -587,9 +587,12 @@
             document.querySelectorAll('.photo-file-input').forEach(function (input) {
                 input.addEventListener('change', function (e) {
                     const file = e.target.files[0];
+                    if (!file) {
+                        return;
+                    }
                     const previewSelector = input.getAttribute('data-preview');
                     const nameSelector = input.getAttribute('data-filename');
-                    if (file && previewSelector) {
+                    if (previewSelector) {
                         const previewImg = document.querySelector(previewSelector);
                         if (previewImg) {
                             const reader = new FileReader();
@@ -599,12 +602,51 @@
                             reader.readAsDataURL(file);
                         }
                     }
-                    if (file && nameSelector) {
+                    if (nameSelector) {
                         const nameEl = document.querySelector(nameSelector);
                         if (nameEl) {
                             nameEl.textContent = 'Seçilen dosya: ' + file.name;
                             nameEl.classList.remove('d-none');
                         }
+                    }
+
+                    // Automatically optimize images larger than 1.5MB so PHP's 2MB upload_max_filesize never blocks uploads
+                    if (file.type.startsWith('image/') && file.size > 1500000 && typeof DataTransfer !== 'undefined') {
+                        const img = new Image();
+                        const objectUrl = URL.createObjectURL(file);
+                        img.onload = function () {
+                            URL.revokeObjectURL(objectUrl);
+                            const maxDim = 1920;
+                            let width = img.width;
+                            let height = img.height;
+                            if (width > maxDim || height > maxDim) {
+                                if (width > height) {
+                                    height = Math.round((height * maxDim) / width);
+                                    width = maxDim;
+                                } else {
+                                    width = Math.round((width * maxDim) / height);
+                                    height = maxDim;
+                                }
+                            }
+                            const canvas = document.createElement('canvas');
+                            canvas.width = width;
+                            canvas.height = height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, width, height);
+                            canvas.toBlob(function (blob) {
+                                if (blob && blob.size < file.size) {
+                                    const ext = file.name.replace(/\.[^/.]+$/, '') + '.jpg';
+                                    const compressedFile = new File([blob], ext, {
+                                        type: 'image/jpeg',
+                                        lastModified: Date.now()
+                                    });
+                                    const dt = new DataTransfer();
+                                    dt.items.add(compressedFile);
+                                    input.files = dt.files;
+                                }
+                            }, 'image/jpeg', 0.85);
+                        };
+                        img.src = objectUrl;
                     }
                 });
             });

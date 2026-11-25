@@ -10,7 +10,6 @@
     @include('sections.text-slider')
     @include('sections.work-step')
     @include('sections.product')
-    @include('sections.blog')
     @include('sections.cta')
 @endsection
 

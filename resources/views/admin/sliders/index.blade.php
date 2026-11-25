@@ -32,7 +32,7 @@
                     @forelse($sliders as $slider)
                         <tr>
                             <td>
-                                <img src="{{ asset($slider->background_image) }}" alt="{{ $slider->title }}" class="thumb-preview">
+                                <img src="{{ $slider->imageUrl() }}" alt="{{ $slider->title }}" class="thumb-preview">
                             </td>
                             <td>{{ $slider->subtitle ?: '—' }}</td>
                             <td>

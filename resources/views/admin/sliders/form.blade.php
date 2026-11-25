@@ -121,7 +121,7 @@
                         <div class="photo-upload-card">
                             <div class="d-flex flex-column flex-md-row align-items-md-center gap-3">
                                 <div class="photo-preview-wrapper">
-                                    <img id="slider-photo-preview" src="{{ asset(old('background_image', $slider->background_image ?: 'assets/images/bg/banner-bg-09.png')) }}" alt="Önizleme">
+                                    <img id="slider-photo-preview" src="{{ $slider->imageUrl() }}" alt="Önizleme">
                                 </div>
                                 <div class="flex-grow-1">
                                     <div class="d-flex flex-wrap align-items-center gap-2 mb-2">

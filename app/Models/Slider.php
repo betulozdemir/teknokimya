@@ -41,4 +41,28 @@ class Slider extends Model
     {
         return $query->where('is_active', true)->orderBy('sort_order');
     }
+
+    /**
+     * Resolve the public URL for the slider background image.
+     */
+    public function imageUrl(): string
+    {
+        $path = trim((string) $this->background_image);
+
+        if ($path === '') {
+            return asset('assets/images/slider/slider-galvano-coating.jpg');
+        }
+
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+            return $path;
+        }
+
+        $normalized = ltrim($path, '/');
+
+        if (str_starts_with($normalized, 'uploads/')) {
+            $normalized = 'storage/'.$normalized;
+        }
+
+        return asset($normalized);
+    }
 }

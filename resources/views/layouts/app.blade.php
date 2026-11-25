@@ -328,6 +328,93 @@
             color: #002D72;
             font-weight: bold;
         }
+
+        /* Modern Branded Preloader */
+        #pre-load {
+            background-color: #ffffff;
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            margin-top: 0;
+            top: 0;
+            left: 0;
+            z-index: 999999;
+        }
+
+        .teknokimya-loader {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .teknokimya-loader-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: loaderLogoPulse 2.2s ease-in-out infinite;
+        }
+
+        .teknokimya-loader-logo img {
+            width: 230px;
+            max-width: 80vw;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 6px 18px rgba(0, 45, 114, 0.08));
+        }
+
+        .teknokimya-loader-bar {
+            width: 180px;
+            max-width: 65vw;
+            height: 4px;
+            background: rgba(0, 45, 114, 0.1);
+            border-radius: 99px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 24px;
+        }
+
+        .teknokimya-loader-bar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0, 45, 114, 0.2), #002D72 50%, #0066cc 100%);
+            border-radius: 99px;
+            animation: loaderBarSlide 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes loaderLogoPulse {
+            0%, 100% {
+                transform: scale(0.97);
+                opacity: 0.9;
+            }
+            50% {
+                transform: scale(1.02);
+                opacity: 1;
+            }
+        }
+
+        @keyframes loaderBarSlide {
+            0% {
+                left: -50%;
+                width: 30%;
+            }
+            50% {
+                left: 25%;
+                width: 55%;
+            }
+            100% {
+                left: 100%;
+                width: 30%;
+            }
+        }
     </style>
     @stack('styles')
 </head>
@@ -336,10 +423,11 @@
 
     <!-- preloader start -->
     <div id="pre-load">
-        <div id="loader" class="loader">
-            <div class="loader-container has-theme-light-blue">
-                <div class="loader-icon"><img src="{{ asset('assets/images/favicon-light-blue.png') }}" alt=""></div>
+        <div id="loader" class="teknokimya-loader">
+            <div class="teknokimya-loader-logo">
+                <img src="{{ asset('assets/images/logo/logo-light-blue.png') }}" alt="Teknokimya">
             </div>
+            <div class="teknokimya-loader-bar"></div>
         </div>
     </div>
     <!-- preloader end -->
